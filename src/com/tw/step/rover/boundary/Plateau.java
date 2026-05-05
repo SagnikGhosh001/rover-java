@@ -13,6 +13,6 @@ public class Plateau implements Boundary {
 
     @Override
     public boolean isWithin(Coordinate coord) {
-        return coord.isWithin(bottomLeft,topRight);
+        return coord.isWithin(bottomLeft, topRight);
     }
 }

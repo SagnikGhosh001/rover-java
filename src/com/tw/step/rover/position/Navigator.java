@@ -8,7 +8,7 @@ public class Navigator {
     private static Navigator NAVIGATOR = null;
     private final HashMap<Direction, Direction> lefts;
     private final HashMap<Direction, Direction> rights;
-    private HashMap<Direction, Coordinate> offsets;
+    private final HashMap<Direction, Coordinate> offsets;
 
     private Navigator() {
         offsets = new HashMap<>();

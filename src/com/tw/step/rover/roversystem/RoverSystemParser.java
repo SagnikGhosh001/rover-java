@@ -12,7 +12,7 @@ import com.tw.step.rover.rover.Rover;
 public class RoverSystemParser {
     private final RoverSystemScanner scanner;
     private final Navigator navigator;
-    private final Boundary boundary;
+    private Boundary boundary;
     private final CommandCreator commandCreator;
 
     public RoverSystemParser(RoverSystemScanner scanner, Navigator navigator, Boundary boundary, CommandCreator commandCreator) {
