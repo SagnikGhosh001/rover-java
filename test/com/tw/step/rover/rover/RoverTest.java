@@ -18,6 +18,6 @@ class RoverTest {
         rover.turnRight(navigator, boundary);
         rover.move(navigator, boundary);
 
-        assertEquals("1 0 E", rover.toString());
+        assertEquals("1 0 E Live", rover.toString());
     }
 }

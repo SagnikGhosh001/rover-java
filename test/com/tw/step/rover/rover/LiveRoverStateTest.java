@@ -7,9 +7,7 @@ import com.tw.step.rover.position.Direction;
 import com.tw.step.rover.position.Navigator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LiveRoverStateTest {
     @Test
@@ -20,7 +18,7 @@ class LiveRoverStateTest {
         RoverState nextState = state.turnLeft(Navigator.create(), new InfinitePlateau());
 
         assertSame(state, nextState);
-        assertEquals("1 1 W", rover.toString());
+        assertEquals("1 1 W Live", rover.toString());
     }
 
     @Test
@@ -31,7 +29,7 @@ class LiveRoverStateTest {
         RoverState nextState = state.move(Navigator.create(), new InfinitePlateau());
 
         assertSame(state, nextState);
-        assertEquals("1 2 N", rover.toString());
+        assertEquals("1 2 N Live", rover.toString());
     }
 
     @Test
@@ -42,6 +40,6 @@ class LiveRoverStateTest {
         RoverState nextState = state.move(Navigator.create(), new Plateau(new Coordinate(0, 0), new Coordinate(2, 2)));
 
         assertInstanceOf(DeadRoverState.class, nextState);
-        assertEquals("5 5 N", rover.toString());
+        assertEquals("5 5 N Live", rover.toString());
     }
 }

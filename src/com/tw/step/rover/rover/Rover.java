@@ -5,6 +5,8 @@ import com.tw.step.rover.position.Coordinate;
 import com.tw.step.rover.position.Direction;
 import com.tw.step.rover.position.Navigator;
 
+import java.util.Objects;
+
 public class Rover {
     private final String id;
     private RoverState roverState;
@@ -56,6 +58,19 @@ public class Rover {
 
     @Override
     public String toString() {
-        return coordinate.toString() + " " + heading.toString();
+        String state = roverState.equals(new LiveRoverState(this)) ? "Live" : "Dead";
+        return coordinate.toString() + " " + heading.toString() + " " + state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Rover rover = (Rover) o;
+        return Objects.equals(id, rover.id) && Objects.equals(roverState, rover.roverState) && Objects.equals(coordinate, rover.coordinate) && heading == rover.heading;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, roverState, coordinate, heading);
     }
 }

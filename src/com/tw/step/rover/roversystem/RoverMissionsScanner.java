@@ -1,20 +1,19 @@
 package com.tw.step.rover.roversystem;
 
-import com.tw.step.rover.commands.RoverCommands;
 import com.tw.step.rover.position.Coordinate;
 import com.tw.step.rover.position.Direction;
 
-public class RoverSystemScanner {
+public class RoverMissionsScanner {
     private final String[] tokens;
     private int currentIndex;
 
-    private RoverSystemScanner(String[] tokens) {
+    private RoverMissionsScanner(String[] tokens) {
         this.tokens = tokens;
         this.currentIndex = 0;
     }
 
     public String peek() {
-        if(this.isDone()) return null;
+        if (this.isDone()) return null;
         return this.tokens[this.currentIndex];
     }
 
@@ -24,15 +23,15 @@ public class RoverSystemScanner {
 
     public String consume() {
         String token = this.peek();
-        if(this.currentIndex < this.tokens.length) {
+        if (this.currentIndex < this.tokens.length) {
             this.currentIndex++;
         }
         return token;
     }
 
-    public static RoverSystemScanner from(String input) {
+    public static RoverMissionsScanner from(String input) {
         String[] tokens = input.split("[\n\t ]+");
-        return new RoverSystemScanner(tokens);
+        return new RoverMissionsScanner(tokens);
     }
 
     public int scanNumber() {
@@ -42,7 +41,7 @@ public class RoverSystemScanner {
     public Coordinate scanCoordinate() {
         int x = this.scanNumber();
         int y = this.scanNumber();
-        return new Coordinate(x,y);
+        return new Coordinate(x, y);
     }
 
     public Direction scanDirection() {

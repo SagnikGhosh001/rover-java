@@ -4,6 +4,8 @@ import com.tw.step.rover.boundary.Boundary;
 import com.tw.step.rover.position.Coordinate;
 import com.tw.step.rover.position.Navigator;
 
+import java.util.Objects;
+
 public class LiveRoverState implements RoverState {
     private final Rover rover;
 
@@ -35,4 +37,15 @@ public class LiveRoverState implements RoverState {
         return this;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        LiveRoverState that = (LiveRoverState) o;
+        return Objects.equals(rover, that.rover);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(rover);
+    }
 }

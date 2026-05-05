@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class RoverSystemScannerTest {
+class RoverMissionScannerTest {
     @Test
     void shouldScanValuesFromInput() {
-        RoverSystemScanner scanner = RoverSystemScanner.from("1 2 N");
-        RoverSystemScanner coordinateScanner = RoverSystemScanner.from("2 0");
-        RoverSystemScanner directionScanner = RoverSystemScanner.from("N");
-        RoverSystemScanner consumeScanner = RoverSystemScanner.from("X");
+        RoverMissionsScanner scanner = RoverMissionsScanner.from("1 2 N");
+        RoverMissionsScanner coordinateScanner = RoverMissionsScanner.from("2 0");
+        RoverMissionsScanner directionScanner = RoverMissionsScanner.from("N");
+        RoverMissionsScanner consumeScanner = RoverMissionsScanner.from("X");
 
         assertEquals("1", scanner.peek());
         assertEquals(1, scanner.scanNumber());

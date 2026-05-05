@@ -20,6 +20,6 @@ class DeadRoverStateTest {
         assertSame(state, state.turnLeft(navigator, boundary));
         assertSame(state, state.turnRight(navigator, boundary));
         assertSame(state, state.move(navigator, boundary));
-        assertEquals("1 1 N", rover.toString());
+        assertEquals("1 1 N Live", rover.toString());
     }
 }

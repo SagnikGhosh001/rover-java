@@ -17,12 +17,12 @@ class CommandExecutionTest {
         Rover rover = new Rover(new Coordinate(0, 0), Direction.N);
 
         new TurnLeftCommand(navigator, boundary).execute(rover);
-        assertEquals("0 0 W", rover.toString());
+        assertEquals("0 0 W Live", rover.toString());
 
         new TurnRightCommand(navigator, boundary).execute(rover);
-        assertEquals("0 0 N", rover.toString());
+        assertEquals("0 0 N Live", rover.toString());
 
         new MoveCommand(navigator, boundary).execute(rover);
-        assertEquals("0 1 N", rover.toString());
+        assertEquals("0 1 N Live", rover.toString());
     }
 }

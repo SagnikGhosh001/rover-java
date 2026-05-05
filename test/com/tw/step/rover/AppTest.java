@@ -20,6 +20,6 @@ class AppTest {
             System.setOut(originalOut);
         }
 
-        assertEquals("0 5 W" + System.lineSeparator(), output.toString());
+        assertEquals("3 4 E Live" + System.lineSeparator(), output.toString());
     }
 }

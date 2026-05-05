@@ -11,18 +11,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RoverSystemTest {
+class RoverMissionTest {
     @Test
     void shouldExecuteCommandsForAddedRover() {
-        RoverSystem roverSystem = new RoverSystem();
+        RoverMission roverMission = new RoverMission();
         Rover rover = new Rover(new Coordinate(0, 0), Direction.N);
         RoverCommands commands = new RoverCommands();
         commands.add(new MoveCommand(Navigator.create(), new InfinitePlateau()));
 
-        roverSystem.addRover(rover);
-        roverSystem.addCommands(commands);
-        roverSystem.execute();
+        roverMission.addRover(rover);
+        roverMission.addCommands(commands);
+        roverMission.execute();
 
-        assertEquals("0 1 N", roverSystem.toString());
+        assertEquals("0 1 N Live", roverMission.toString());
     }
 }

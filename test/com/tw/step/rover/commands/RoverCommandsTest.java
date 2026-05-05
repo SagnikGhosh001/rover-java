@@ -23,6 +23,6 @@ class RoverCommandsTest {
 
         commands.execute(rover);
 
-        assertEquals("2 0 E", rover.toString());
+        assertEquals("2 0 E Live", rover.toString());
     }
 }
