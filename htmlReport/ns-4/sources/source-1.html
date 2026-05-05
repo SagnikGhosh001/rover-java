@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Coordinate</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.tw.step.rover.position</a>
+</div>
+
+<h1>Coverage Summary for Class: Coordinate (com.tw.step.rover.position)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Coordinate</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62.5%
+  </span>
+  <span class="absValue">
+    (10/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.tw.step.rover.position;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public class Coordinate {
+&nbsp;    private final int x;
+&nbsp;    private final int y;
+&nbsp;
+<b class="fc">&nbsp;    public Coordinate(int x, int y) {</b>
+<b class="fc">&nbsp;        this.x = x;</b>
+<b class="fc">&nbsp;        this.y = y;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return x + &quot; &quot; + y;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="pc">&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc">&nbsp;        Coordinate that = (Coordinate) o;</b>
+<b class="pc">&nbsp;        return x == that.x &amp;&amp; y == that.y;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(x, y);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isWithin(Coordinate bottomLeft, Coordinate topRight) {
+<b class="pc">&nbsp;        return bottomLeft.x &lt;= this.x &amp;&amp; this.x &lt;= topRight.x &amp;&amp; bottomLeft.y &lt;= this.y &amp;&amp; this.y &lt;= topRight.y;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Coordinate add(Coordinate other) {
+<b class="fc">&nbsp;        return new Coordinate(this.x + other.x, this.y + other.y);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-06 00:41</div>
+</div>
+</body>
+</html>

@@ -9,15 +9,17 @@ import com.tw.step.rover.position.Direction;
 import com.tw.step.rover.position.Navigator;
 import com.tw.step.rover.rover.Rover;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RoverMissionsParser {
     private final RoverMissionsScanner scanner;
     private final Navigator navigator;
     private final Boundary boundary;
     private final CommandCreator commandCreator;
-    private final Map<String, Rover> roverMap = new LinkedHashMap<>();
-    private final Map<String, RoverCommands> roverCommandsMap = new HashMap<>();
+    private final Map<String, RoverMission> missionMap = new LinkedHashMap<>();
 
     public RoverMissionsParser(RoverMissionsScanner scanner, Navigator navigator, Boundary boundary, CommandCreator commandCreator) {
         this.scanner = scanner;
@@ -26,51 +28,38 @@ public class RoverMissionsParser {
         this.commandCreator = commandCreator;
     }
 
-    private Rover parseRover() {
+    private Rover parseRover(String id) {
         Coordinate coordinate = scanner.scanCoordinate();
         Direction heading = scanner.scanDirection();
-        return new Rover(coordinate, heading);
+        return new Rover(id, coordinate, heading);
     }
 
     public List<RoverMission> parse() {
-        setUpRoversAndCommandsMap();
-        return createRoverMissions();
+        parseAll();
+        return new ArrayList<>(missionMap.values());
     }
 
-    private List<RoverMission> createRoverMissions() {
-        List<RoverMission> roverMissions = new ArrayList<>();
 
-        roverMap.forEach((roverId, rover) -> {
-            RoverMission roverMission = new RoverMission();
-            roverMission.addRover(rover);
-            roverMission.addCommands(roverCommandsMap.get(roverId));
-            roverMissions.add(roverMission);
-        });
-
-        return roverMissions;
-    }
-
-    private void setUpRoversAndCommandsMap() {
+    private void parseAll() {
         while (scanner.peek() != null) {
             String rawId = scanner.consume();
             if (rawId.contains(":")) {
-                setRoverCommandsMap(rawId, roverCommandsMap);
-                continue;
+                parseCommandLine(rawId);
+            } else {
+                parseRoverLine(rawId);
             }
-
-            setRoverMap(roverMap, rawId);
         }
     }
 
-    private void setRoverMap(Map<String, Rover> roverMap, String rawId) {
-        Rover rover = parseRover();
-        roverMap.put(rawId, rover);
+    private void parseCommandLine(String rawId) {
+        String actualId = rawId.substring(0, rawId.length() - 1);
+        missionMap.get(actualId).addCommands(parseRoverCommands());
     }
 
-    private void setRoverCommandsMap(String rawId, Map<String, RoverCommands> roverCommandsMap) {
-        String actualId = rawId.substring(0, rawId.length() - 1);
-        RoverCommands roverCommands = parseRoverCommands();
-        roverCommandsMap.put(actualId, roverCommands);
+    private void parseRoverLine(String rawId) {
+        RoverMission roverMission = new RoverMission();
+        roverMission.addRover(parseRover(rawId));
+        missionMap.put(rawId, roverMission);
     }
 
     private RoverCommands parseRoverCommands() {
