@@ -2,7 +2,6 @@ package com.tw.step.rover.roversystem;
 
 import com.tw.step.rover.boundary.Boundary;
 import com.tw.step.rover.commands.CommandCreator;
-import com.tw.step.rover.commands.RoverCommand;
 import com.tw.step.rover.commands.RoverCommands;
 import com.tw.step.rover.position.Coordinate;
 import com.tw.step.rover.position.Direction;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class RoverMissionsParser {
     private final RoverMissionsScanner scanner;
@@ -35,20 +35,22 @@ public class RoverMissionsParser {
     }
 
     public List<RoverMission> parse() {
-        parseAll();
+        while (scanner.peek() != null) {
+            String rawId = scanner.consume();
+            parseLine(rawId);
+        }
+
         return new ArrayList<>(missionMap.values());
     }
 
 
-    private void parseAll() {
-        while (scanner.peek() != null) {
-            String rawId = scanner.consume();
-            if (rawId.contains(":")) {
-                parseCommandLine(rawId);
-            } else {
-                parseRoverLine(rawId);
-            }
+    private void parseLine(String rawId) {
+        if (rawId.contains(":")) {
+            parseCommandLine(rawId);
+            return;
         }
+
+        parseRoverLine(rawId);
     }
 
     private void parseCommandLine(String rawId) {
@@ -65,10 +67,10 @@ public class RoverMissionsParser {
     private RoverCommands parseRoverCommands() {
         RoverCommands roverCommands = new RoverCommands();
         String instructions = scanner.consume();
-        for (int i = 0; i < instructions.length(); i++) {
-            RoverCommand roverCommand = commandCreator.create(instructions.charAt(i), navigator, boundary);
-            roverCommands.add(roverCommand);
-        }
+
+        IntStream.range(0, instructions.length())
+                .mapToObj(i -> commandCreator.create(instructions.charAt(i), navigator, boundary))
+                .forEach(roverCommands::add);
 
         return roverCommands;
     }
