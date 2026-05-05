@@ -46,7 +46,7 @@ class RoverSystemTest {
 
         assertEquals(
                 "3 4 E Live" + System.lineSeparator() +
-                "7 3 E Live" + System.lineSeparator(),
+                        "7 3 E Live" + System.lineSeparator(),
                 output.toString()
         );
     }
@@ -74,7 +74,58 @@ class RoverSystemTest {
 
         assertEquals(
                 "3 4 E Live" + System.lineSeparator() +
-                "5 3 E Dead" + System.lineSeparator(),
+                        "5 3 E Dead" + System.lineSeparator(),
+                output.toString()
+        );
+    }
+
+    @Test
+    void shouldMarkBothRoversDeadOnCollision() {
+        new RoverSystem().execute("""
+                10 10
+                R1 0 1 E
+                R2 1 1 N
+                R1: F
+                R2: F
+                """);
+
+        assertEquals(
+                "1 1 E Dead" + System.lineSeparator() +
+                        "1 1 N Dead" + System.lineSeparator(),
+                output.toString()
+        );
+    }
+
+    @Test
+    void shouldMarkBothRoversDeadOnCollisionMultiCommandForOneRover() {
+        new RoverSystem().execute("""
+                10 10
+                R1 0 1 N
+                R2 1 1 N
+                R1: LRRF
+                R2: F
+                """);
+
+        assertEquals(
+                "1 1 E Dead" + System.lineSeparator() +
+                        "1 1 N Dead" + System.lineSeparator(),
+                output.toString()
+        );
+    }
+
+    @Test
+    void shouldMarkBothRoversDeadOnCollisionMultiCommandForOneRoverForSecondRover() {
+        new RoverSystem().execute("""
+                10 10
+                R1 0 1 N
+                R2 1 2 N
+                R1: LRRF
+                R2: FRFRFFRF
+                """);
+
+        assertEquals(
+                "1 1 E Dead" + System.lineSeparator() +
+                        "1 1 W Dead" + System.lineSeparator(),
                 output.toString()
         );
     }

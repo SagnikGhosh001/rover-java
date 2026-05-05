@@ -73,4 +73,12 @@ public class Rover {
     public int hashCode() {
         return Objects.hash(id, roverState, coordinate, heading);
     }
+
+    public void checkCollision(Rover rover) {
+        boolean isColliding = coordinate.isColliding(rover.coordinate);
+        if (isColliding) {
+            this.roverState = new DeadRoverState(this);
+            rover.roverState = new DeadRoverState(rover);
+        }
+    }
 }

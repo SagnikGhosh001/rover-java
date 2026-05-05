@@ -25,4 +25,14 @@ class CoordinateTest {
     void shouldConvertCoordinateToString() {
         assertEquals("4 -1", new Coordinate(4, -1).toString());
     }
+
+    @Test
+    void shouldReturnTrueWhenCoordinatesAreTheSame() {
+        assertTrue(new Coordinate(2, 3).isColliding(new Coordinate(2, 3)));
+    }
+
+    @Test
+    void shouldReturnFalseWhenCoordinatesAreDifferent() {
+        assertFalse(new Coordinate(2, 3).isColliding(new Coordinate(2, 4)));
+    }
 }

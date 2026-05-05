@@ -99,4 +99,31 @@ class RoverMissionsTest {
 
         assertEquals("", output.toString());
     }
+
+    @Test
+    void shouldMarkBothRoversDeadWhenTheyCollide() {
+        Navigator navigator = Navigator.create();
+        InfinitePlateau plateau = new InfinitePlateau();
+
+        RoverMission first = new RoverMission();
+        first.addRover(new Rover(new Coordinate(0, 1), Direction.E));
+        RoverCommands firstCommands = new RoverCommands();
+        firstCommands.add(new MoveCommand(navigator, plateau));
+        first.addCommands(firstCommands);
+
+        RoverMission second = new RoverMission();
+        second.addRover(new Rover(new Coordinate(1, 1), Direction.N));
+        second.addCommands(new RoverCommands());
+
+        RoverMissions missions = new RoverMissions();
+        missions.add(first);
+        missions.add(second);
+        missions.executeAll();
+
+        assertEquals(
+                "1 1 E Dead" + System.lineSeparator() +
+                "1 1 N Dead" + System.lineSeparator(),
+                output.toString()
+        );
+    }
 }

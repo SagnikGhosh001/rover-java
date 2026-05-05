@@ -35,4 +35,8 @@ public class Coordinate {
     public Coordinate add(Coordinate other) {
         return new Coordinate(this.x + other.x, this.y + other.y);
     }
+
+    public boolean isColliding(Coordinate coordinate) {
+        return this.equals(coordinate);
+    }
 }
