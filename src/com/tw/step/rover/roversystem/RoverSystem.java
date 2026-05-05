@@ -6,8 +6,6 @@ import com.tw.step.rover.commands.CommandCreator;
 import com.tw.step.rover.position.Coordinate;
 import com.tw.step.rover.position.Navigator;
 
-import java.util.List;
-
 public class RoverSystem {
     public void execute(String text) {
         RoverMissionsScanner scanner = RoverMissionsScanner.from(text);
@@ -15,12 +13,9 @@ public class RoverSystem {
         Boundary boundary = getBoundary(scanner);
         CommandCreator commandCreator = new CommandCreator();
         RoverMissionsParser roverMissionsParser = new RoverMissionsParser(scanner, navigator, boundary, commandCreator);
-        List<RoverMission> missions = roverMissionsParser.parse();
+        RoverMissions missions = roverMissionsParser.parse();
 
-        missions.forEach((mission) -> {
-            mission.execute();
-            System.out.println(mission);
-        });
+        missions.executeAll();
     }
 
 
@@ -28,6 +23,5 @@ public class RoverSystem {
         Coordinate bottomLeft = new Coordinate(0, 0);
         Coordinate topRight = scanner.scanCoordinate();
         return new Plateau(bottomLeft, topRight);
-
     }
 }

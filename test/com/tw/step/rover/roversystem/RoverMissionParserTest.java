@@ -8,8 +8,6 @@ import com.tw.step.rover.position.Coordinate;
 import com.tw.step.rover.position.Navigator;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoverMissionParserTest {
@@ -23,7 +21,7 @@ class RoverMissionParserTest {
                 """);
         RoverMissionsParser parser = new RoverMissionsParser(scanner, Navigator.create(), new InfinitePlateau(), new CommandCreator());
 
-        List<RoverMission> roverMission = parser.parse();
+        RoverMissions roverMission = parser.parse();
         roverMission.forEach(RoverMission::execute);
 
         assertEquals("[3 4 E Live, 7 3 E Live]", roverMission.toString());
@@ -43,7 +41,7 @@ class RoverMissionParserTest {
         Boundary boundary = new Plateau(bottomLeft, topRight);
         RoverMissionsParser parser = new RoverMissionsParser(scanner, Navigator.create(), boundary, new CommandCreator());
 
-        List<RoverMission> roverMission = parser.parse();
+        RoverMissions roverMission = parser.parse();
         roverMission.forEach(RoverMission::execute);
 
         assertEquals("[3 4 E Live, 5 3 E Dead]", roverMission.toString());

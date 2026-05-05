@@ -8,9 +8,7 @@ import com.tw.step.rover.position.Direction;
 import com.tw.step.rover.position.Navigator;
 import com.tw.step.rover.rover.Rover;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
@@ -34,13 +32,15 @@ public class RoverMissionsParser {
         return new Rover(id, coordinate, heading);
     }
 
-    public List<RoverMission> parse() {
+    public RoverMissions parse() {
         while (scanner.peek() != null) {
             String rawId = scanner.consume();
             parseLine(rawId);
         }
 
-        return new ArrayList<>(missionMap.values());
+        RoverMissions missions = new RoverMissions();
+        missions.addAll(missionMap.values());
+        return missions;
     }
 
 
